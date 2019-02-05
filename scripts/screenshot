@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+FORMAT=$(date '+%Y-%M-%H_%S_%V%N%U%s')
+DIRECTORY="/home/rpostill/Pictures/screenshots"
+FINAL="/srv/www/ss/"
+SCROT="/usr/bin/scrot"
+HOST="abram.ath.cx"
+USER="rpostill"
+SCREENSHOT="$DIRECTORY/$FORMAT.png"
+REMOTESHOT="$FINAL/$FORMAT.png"
+
+$SCROT -s "$SCREENSHOT"
+scp $SCREENSHOT $USER@$HOST:$REMOTESHOT
+echo "http://$HOST/ss/$FORMAT.png" | xclip -sel clip
+/usr/bin/google-chrome "http://$HOST/ss/$FORMAT.png"
