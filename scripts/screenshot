@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
+
+source /home/rpostill/.config/secrets/screenshot
 FORMAT=$(date '+%Y-%M-%H_%S_%V%N%U%s')
 DIRECTORY="/home/rpostill/Pictures/screenshots"
 FINAL="/srv/www/ss/"
 SCROT="/usr/bin/scrot"
-HOST="abram.ath.cx"
-USER="rpostill"
 SCREENSHOT="$DIRECTORY/$FORMAT.png"
 REMOTESHOT="$FINAL/$FORMAT.png"
 
