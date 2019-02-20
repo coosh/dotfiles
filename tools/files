@@ -1,6 +1,6 @@
 ~/.config/i3/config,../i3wm.config
-~/.config/i3blocks,../i3blocks
+~/.config/i3blocks,../
 ~/.vimrc,../vimrc
-~/personal/code/st/,../st/
-~/personal/code/st-patches/,../st/
-~/.config/scripts,../
+~/personal/code/st,../
+~/personal/code/st-patches,../
+~/.config/scripts/,../

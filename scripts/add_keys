@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+KEYS=($(ls -al ~/.ssh/*.pub | awk '{ print $9 }' | awk -F\/ '{ print $(NF) }' | awk -F\. '{ print $1 }'))
+AGENTS=($(ssh-add -l | awk '{ print $3 }'  | awk -F\/ '{print $(NF)}'))
+
+for key in "${KEYS[@]}"; do
+  MATCH=0
+  for agent in "${AGENTS[@]}"; do
+    if [ "$key" == "$agent" ]; then
+      MATCH=1
+    fi
+  done
+  if [ $MATCH == 0 ]; then
+    ssh-add ~/.ssh/$key
+  fi
+done
