@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+SITE="https://apod.nasa.gov/"
+FETCH="apod/astropix.html"
+SAVE="$HOME/Pictures/astropix"
+TEMP="/tmp/astropix.$$"
+
+mkdir -p $SAVE
+curl -s "$SITE/$FETCH" -o $TEMP
+PIC=$(cat $TEMP | grep href | head -n2 | tail -n1 | awk -F\" '{ print $2 }')
+FILENAME=$(echo $PIC | awk -F\/ '{ print $NF }')
+curl -s "$SITE/$PIC" -o $SAVE/$FILENAME
+ln -s $SAVE/$FILENAME $SAVE/daily.jpg
+feh --bg-scale ~/.config/i3/background.jpg
