@@ -3,7 +3,7 @@
 # HOST, USER, FORMAT in secrets
 source ~/.config/secrets/screenshot
 
-DIRECTORY="~/Pictures/screenshots"
+DIRECTORY="$HOME/Pictures/screenshots"
 FINAL="/srv/www/ss/"
 SCROT="/usr/bin/scrot"
 SCREENSHOT="$DIRECTORY/$FORMAT.png"
@@ -11,5 +11,12 @@ REMOTESHOT="$FINAL/$FORMAT.png"
 
 $SCROT -s "$SCREENSHOT"
 scp $SCREENSHOT $USER@$HOST:$REMOTESHOT
-echo "http://$HOST/ss/$FORMAT.png" | xclip -sel clip
-/usr/bin/google-chrome "http://$HOST/ss/$FORMAT.png"
+retval=$?
+if [ $retval -eq 0 ]; then
+  echo "http://$HOST/ss/$FORMAT.png" | xclip -sel clip
+  notify-send "Screenshot" "Link copied"
+  /usr/bin/google-chrome "http://$HOST/ss/$FORMAT.png"
+else
+  notify-send "Screenshot" "Failed exit code: $?"
+fi
+
