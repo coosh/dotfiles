@@ -21,12 +21,13 @@
 # Private contact: alex@swen.nu
 
 # CHANGELOG:
-# 20140520	A.Swen	created.
+# 20140520	A.Swen	  created.
+# 20199220      R.Postill Refined to be not specific to host or device type.
+# 20190220      R.Postill Added step caculation based on the first device also to be %1 per up/down.
+# 20190220      R.Postill Remove unused variables.
 
 # SETTINGS
-date=$(date +%Y%m%d)
 me=$(basename $0)
-mydir=$(dirname $0)
 
 # FUNCTIONS
 die () {
@@ -45,42 +46,30 @@ usage () {
   echo "====       USAGE      ====" >&2
   echo "==========================" >&2
   echo "" >&2
-  echo "Usage: ${me} <up> or <down>" >&2
+  echo "Usage: ${me} <up> or <down> [device]" >&2
   echo "" >&2
   echo "example: ${me} up" >&2
+  echo "example: ${me} up intel_backlight" >&2
   echo "" >&2
   exit 1
 }
 
 # SCRIPT
 [ ${UID} -gt 0 ] && die 1 only root may do that
-case $HOSTNAME in
-  nvc3876)
-    ctlfile=/sys/class/backlight/intel_backlight/brightness
-    ;;
-  laptop-nico-aardbei)
-    ctlfile=/sys/class/backlight/acpi_video0/brightness
-    ;;
-  *)
-    die 1 "Dunno the ctlfile."
-  ;;
-esac
+
+if [ ! -z $2 ]; then
+  device="$2"
+else
+  device="*"
+fi
+
+ctlfile="/sys/class/backlight/$device/brightness"
+
 [ -f ${ctlfile} ] || die 2 controlfile ${ctlfile} not found
 
+max_brightness=$(cat /sys/class/backlight/$device/max_brightness | head -n1)
+step=$(expr $max_brightness / 100)
 br=$(cat ${ctlfile})
-
-# vary in steps
-if [ $br -ge 1400 -a $1 == "up" ];then
-  step=$((1500-$br))
-elif [ $br -le 1500 -a $br -gt 1000 ];then
-  step=15
-elif [ $br -le 1000 -a $br -gt 100 ];then
-  step=50
-elif [ $br -le 100 -a $br -gt 10 ];then
-  step=10
-elif [ $br -le 10 ];then
-  step=1
-fi
 
 case $1 in
   up) newbr=$((br+step));;
