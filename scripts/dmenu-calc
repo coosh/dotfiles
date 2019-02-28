@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+text='Calc'
+eqn=$(echo | dmenu -p "$text")
+ans=$(calc -pd "$eqn")
+notify-send "$eqn = $ans"
