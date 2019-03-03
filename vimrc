@@ -36,12 +36,26 @@ map <C-n> :NERDTreeToggle<CR>
 " Map for fuzzyfinder
 map <C-t> :FZF<CR>
 
+" Basic settings
 set syntax=on
 set paste
 set number
-
-" gVim
-"colorscheme torte
-
 set swapfile
 set dir=~/.vim/swp
+set tabstop=2
+set autoindent
+set copyindent
+set shiftwidth=2
+set shiftround
+set showmatch
+set ignorecase
+set smartcase
+set smarttab
+set hlsearch
+set incsearch
+
+" Set clipboard
+set clipboard=unnamedplus
+
+" Set hidden for to keep buffers
+set hidden
