@@ -5,8 +5,9 @@
 #
 # i3blocks blocklet script to monitor bandwidth usage
 
-iface="${BLOCK_INSTANCE}"
-iface="${IFACE:-$iface}"
+#iface="${BLOCK_INSTANCE}"
+#iface="${IFACE:-$iface}"
+iface="wlp1s0"
 dt="${DT:-3}"
 unit="${UNIT:-Kb}"
 LABEL="${LABEL:-<span font='FontAwesome'>  </span>}" # down arrow up arrow
