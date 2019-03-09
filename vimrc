@@ -59,3 +59,12 @@ set clipboard=unnamedplus
 
 " Set hidden for to keep buffers
 set hidden
+
+" Word Processing Mode
+func! WordProcessorMode()
+ setlocal textwidth=80
+ setlocal smartindent
+ setlocal spell spelllang=en_us
+ setlocal noexpandtab
+endfu
+com! WP call WordProcessorMode()
