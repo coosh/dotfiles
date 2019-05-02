@@ -22,6 +22,9 @@ Plug 'tpope/vim-fugitive'
 " Plug
 Plug 'chr4/nginx.vim'
 
+" puppet
+Plug 'rodjek/vim-puppet'
+
 call plug#end()
 
 " Set for status
@@ -34,7 +37,7 @@ set updatetime=100
 map <C-n> :NERDTreeToggle<CR>
 
 " Map for fuzzyfinder
-map <C-t> :FZF<CR>
+map <C-e> :FZF<CR>
 
 " Basic settings
 set syntax=on
@@ -59,6 +62,29 @@ set clipboard=unnamedplus
 
 " Set hidden for to keep buffers
 set hidden
+
+" puppet
+au BufNewFile,BufRead *.pp set syntax=puppet
+au FileType puppet setlocal isk+=:
+au FileType puppet nnoremap <c-]> :exe "tag " . substitute(expand("<cword>"), "^::", "", "")<CR>  
+au FileType puppet nnoremap <c-w><c-]> :tab split<CR>:exe "tag " . substitute(expand("<cword>"), "^::", "", "")<CR>
+let g:syntastic_mode_map = { 'passive_filetypes': ['puppet']  }
+
+" Tags
+command! MakeTags !ctags -R .
+au FileType puppet setlocal isk+=:
+set tags=./tags;
+let g:tagbar_type_puppet = {
+  \ 'ctagstype': 'puppet',
+  \ 'kinds': [
+    \'c:class',
+    \'s:site',
+    \'n:node',  
+    \'d:definition',
+    \'r:resource',
+    \'f:default'
+  \]
+\}
 
 " Word Processing Mode
 func! WordProcessorMode()

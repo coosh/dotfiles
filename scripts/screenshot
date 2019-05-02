@@ -15,7 +15,7 @@ retval=$?
 if [ $retval -eq 0 ]; then
   echo "http://$HOST/ss/$FORMAT.png" | xclip -sel clip
   notify-send "Screenshot" "Link copied"
-  /usr/bin/google-chrome "http://$HOST/ss/$FORMAT.png"
+  /usr/bin/google-chrome "https://$HOST/ss/$FORMAT.png"
 else
   notify-send "Screenshot" "Failed exit code: $?"
 fi
