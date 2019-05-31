@@ -10,9 +10,6 @@ Plug 'itchyny/lightline.vim'
 " Gitglitter
 Plug 'airblade/vim-gitgutter'
 
-" Nerdtree
-Plug 'scrooloose/nerdtree'
-
 " Puppet plug
 Plug 'rodjek/vim-puppet'
 
@@ -25,6 +22,9 @@ Plug 'chr4/nginx.vim'
 " puppet
 Plug 'rodjek/vim-puppet'
 
+" Git link
+Plug 'ruanyl/vim-gh-line'
+
 call plug#end()
 
 " Set for status
@@ -32,9 +32,6 @@ set laststatus=2
 
 " Update for gitglitter
 set updatetime=100
-
-" Map for nerdtree
-map <C-n> :NERDTreeToggle<CR>
 
 " Map for fuzzyfinder
 map <C-e> :FZF<CR>
@@ -63,6 +60,9 @@ set clipboard=unnamedplus
 " Set hidden for to keep buffers
 set hidden
 
+" Git link copy to buffer instead of opening
+let g:gh_open_command = 'fn() { echo "$@" | xclip -sel clip && notify-send "Git link" "Copied"; }; fn '
+
 " puppet
 au BufNewFile,BufRead *.pp set syntax=puppet
 au FileType puppet setlocal isk+=:
@@ -85,6 +85,10 @@ let g:tagbar_type_puppet = {
     \'f:default'
   \]
 \}
+
+" Syntax highlights
+:highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+:match ExtraWhitespace /\s\+\%#\@<!$/
 
 " Word Processing Mode
 func! WordProcessorMode()
