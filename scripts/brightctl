@@ -55,7 +55,7 @@ usage () {
 }
 
 # SCRIPT
-[ ${UID} -gt 0 ] && die 1 only root may do that
+#[ ${UID} -gt 0 ] && die 1 only root may do that
 
 if [ ! -z $2 ]; then
   device="$2"

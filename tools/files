@@ -6,3 +6,7 @@
 ~/.config/scripts/,../
 ~/.config/dunst,../
 /etc/default/tlp,../
+/etc/udev/rules.d/backlight.rules,../udev-backlight.rules
+/etc/udev/rules.d/99-yubikey-lock.rules,../udev-99-yubikey-lock.rules
+/etc/acpi/power.sh,../acpi-power.sh
+/etc/network/if-up.d/i3blocks,../network-ifup-i3blocks.sh
